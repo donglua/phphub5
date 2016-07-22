@@ -23,7 +23,6 @@ use App\Http\Controllers\Traits\SocialiteHelper;
 class AuthController extends Controller implements UserCreatorListener
 {
     use VerifiesUsers,SocialiteHelper;
-    protected $oauthDriver = ['github', 'weixin'];
 
     /**
      * Create a new authentication controller instance.
@@ -32,8 +31,7 @@ class AuthController extends Controller implements UserCreatorListener
      */
     public function __construct(User $userModel)
     {
-        $this->middleware('guest', ['except' => ['logout', 'emailVerificationRequired', 'oauth', 'callback', 'getVerification']]);
-        $this->middleware('auth', ['only' => ['emailVerificationRequired']]);
+        $this->middleware('guest', ['except' => ['logout', 'oauth', 'callback', 'getVerification']]);
     }
 
     private function loginUser($user)
@@ -55,11 +53,6 @@ class AuthController extends Controller implements UserCreatorListener
     public function loginRequired()
     {
         return view('auth.loginrequired');
-    }
-
-    public function emailVerificationRequired()
-    {
-        return view('auth.emailverificationrequired');
     }
 
     public function adminRequired()
@@ -140,7 +133,7 @@ class AuthController extends Controller implements UserCreatorListener
             $oauthData['github_id'] = $registerUserData->user['id'];
             $oauthData['github_url'] = $registerUserData->user['url'];
             $oauthData['github_name'] = $registerUserData->nickname;
-        } elseif ($driver == 'weixin') {
+        } elseif ($driver == 'wechat') {
             $oauthData['image_url'] = $registerUserData->avatar;
             $oauthData['wechat_openid'] = $registerUserData->id;
             $oauthData['name'] = $registerUserData->nickname;

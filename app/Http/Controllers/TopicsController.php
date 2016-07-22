@@ -42,7 +42,7 @@ class TopicsController extends Controller implements CreatorListener
 
     public function create(Request $request)
     {
-        if(!Auth::user()->verified) {
+        if (!Auth::user()->verified) {
             return redirect(route('email-verification-required'));
         }
 
@@ -54,7 +54,7 @@ class TopicsController extends Controller implements CreatorListener
 
     public function store(StoreTopicRequest $request)
     {
-        if(!Auth::user()->verified) {
+        if (!Auth::user()->verified) {
             return redirect(route('email-verification-required'));
         }
 
@@ -199,8 +199,7 @@ class TopicsController extends Controller implements CreatorListener
     public function uploadImage(Request $request)
     {
         if ($file = $request->file('file')) {
-            $upload_status = upload_topic_image($file);
-
+            $upload_status = app('Phphub\Handler\ImageUploadHandler')->uploadImage($file);
             if ($upload_status['error']) {
                 return ['error' => $upload_status['error']];
             }
