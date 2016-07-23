@@ -1377,7 +1377,7 @@ span.timeago {
 
 .panel .panel-heading {
     border-bottom: 1px solid #eeeeee;
-    background-color: transparent;
+    background-color: #f8f8f8;
 }
 
 .helpblock.list li {
@@ -1465,4 +1465,36 @@ span.timeago {
 .footer {
     background-color: #fff;
     margin-top: 22px;
+}
+
+.topics-index {
+
+    .panel-heading {
+        background-color: #f8f8f8;
+    }
+    .topic-filter {
+        margin-top: 8px;
+        margin-left: 0px;
+        margin-bottom: 3px;
+
+        li {
+            margin-right: 8px;
+        }
+
+        a {
+            color: #8b8a8a;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 1px 4px;
+            line-height: 18px;
+        }
+
+        a.active {
+            border-bottom: 2px solid #06b3b4;
+        }
+    }
+}
+
+a {
+    color: #06b3b4;
 }
