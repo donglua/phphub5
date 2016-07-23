@@ -127,7 +127,9 @@
 </div>
 
 @include('layouts.partials.sidebar')
+
 @include('layouts.partials.bottombanner')
+
 @stop
 
 @section('scripts')
