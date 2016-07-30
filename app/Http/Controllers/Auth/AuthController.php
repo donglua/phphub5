@@ -31,7 +31,7 @@ class AuthController extends Controller implements UserCreatorListener
      */
     public function __construct(User $userModel)
     {
-        $this->middleware('guest', ['except' => ['logout', 'oauth', 'callback', 'getVerification']]);
+        $this->middleware('guest', ['except' => ['logout', 'oauth', 'callback', 'getVerification', 'userBanned']]);
     }
 
     private function loginUser($user)
@@ -94,8 +94,6 @@ class AuthController extends Controller implements UserCreatorListener
             return redirect(route('home'));
         }
 
-        //force logout
-        Auth::logout();
         return view('auth.userbanned');
     }
 
@@ -128,11 +126,12 @@ class AuthController extends Controller implements UserCreatorListener
     public function userNotFound($driver, $registerUserData)
     {
         if ($driver == 'github') {
-            $oauthData = $registerUserData->user;
             $oauthData['image_url'] = $registerUserData->user['avatar_url'];
             $oauthData['github_id'] = $registerUserData->user['id'];
             $oauthData['github_url'] = $registerUserData->user['url'];
             $oauthData['github_name'] = $registerUserData->nickname;
+            $oauthData['name'] = $registerUserData->user['name'];
+            $oauthData['email'] = $registerUserData->user['email'];
         } elseif ($driver == 'wechat') {
             $oauthData['image_url'] = $registerUserData->avatar;
             $oauthData['wechat_openid'] = $registerUserData->id;

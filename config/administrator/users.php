@@ -14,7 +14,8 @@ return [
         ],
         'image_url' => [
             'title'  => '头像',
-            'output' => function ($value) {
+            'output' => function ($value, $model) {
+                $value = $model->present()->gravatar();
                 return empty($value) ? 'N/A' : <<<EOD
     <img src="$value" width="80">
 EOD;
@@ -35,11 +36,11 @@ EOD;
         'github_name' => [
             'title' => 'GitHub 用户名'
         ],
-        'github_id' => [
-            'title' => 'GitHub Id',
+        'topic_count' => [
+            'title' => '话题数量'
         ],
-        'wechat_unionid' => [
-            'title' => '微信 unionid',
+        'reply_count' => [
+            'title' => '回复数量'
         ],
         'register_source' => [
             'title'  => '注册来源',
@@ -50,7 +51,7 @@ EOD;
         'is_banned' => [
             'title'  => '是否被屏蔽',
             'output' => function ($value) {
-                return admin_enum_style_output($value);
+                return admin_enum_style_output($value, true);
             },
         ],
         'verified' => [
@@ -121,6 +122,10 @@ EOD;
         ],
         'introduction' => [
             'title' => '个人简介'
+        ],
+        'certification' => [
+            'title' => '认证信息',
+            'type' => 'textarea',
         ],
         'github_name' => [
             'title' => 'GitHub 用户名'

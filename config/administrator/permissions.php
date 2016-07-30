@@ -14,10 +14,10 @@ return [
 
     'action_permissions' => [
         'create' => function ($model) {
-            return false;
+            return true;
         },
         'update' => function ($model) {
-            return false;
+            return true;
         },
         'delete' => function ($model) {
             return false;
@@ -39,7 +39,7 @@ return [
             'title'    => '权限名称',
             'sortable' => false,
         ],
-        'discription' => [
+        'description' => [
             'title'    => '描述',
             'sortable' => false,
             'output'   => function ($value, $model) {
@@ -72,7 +72,7 @@ return [
         'display_name' => [
             'title' => '权限名称',
         ],
-        'discription' => [
+        'description' => [
             'title' => '描述',
         ],
     ],
@@ -83,7 +83,7 @@ return [
         'display_name' => [
             'title' => '权限名称',
         ],
-        'discription' => [
+        'description' => [
             'title' => '描述',
         ],
     ],

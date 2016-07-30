@@ -26,15 +26,24 @@
       @endif
         {!! csrf_field() !!}
         <div class="form-group">
-            <select class="selectpicker form-control" name="category_id" >
+            <select class="selectpicker form-control" name="category_id" id="category-select">
 
               <option value="" disabled {{ count($category) != 0 ?: 'selected' }}>{{ lang('Pick a category') }}</option>
 
               @foreach ($categories as $value)
-              <option value="{{ $value->id }}" {{ (count($category) != 0 && $value->id == $category->id) ? 'selected' : '' }} >{{ $value->name }}</option>
+                  @if($value->id != 3 || Auth::user()->can('compose_announcement'))
+                      <option value="{{ $value->id }}" {{ (count($category) != 0 && $value->id == $category->id) ? 'selected' : '' }} >{{ $value->name }}</option>
+                  @endif
               @endforeach
             </select>
         </div>
+
+
+        @foreach ($categories as $category)
+            <div class="category-hint alert alert-warning category-{{ $category->id }}" style="display:none">
+                {!! $category->description !!}
+            </div>
+        @endforeach
 
         <div class="form-group">
             <input class="form-control" id="topic-title" placeholder="{{ lang('Please write down a topic') }}" name="title" type="text" value="{{ !isset($topic) ? '' : $topic->title }}">
@@ -58,19 +67,6 @@
   </div>
 
   <div class="col-md-4 side-bar">
-
-    @if ( $category )
-
-    <div class="panel panel-default corner-radius help-box">
-      <div class="panel-heading text-center">
-        <h3 class="panel-title">{{ lang('Current Category') }} : {{{ $category->name }}}</h3>
-      </div>
-      <div class="panel-body">
-        {{ $category->description }}
-      </div>
-    </div>
-
-    @endif
 
     <div class="panel panel-default corner-radius help-box">
       <div class="panel-heading text-center">
@@ -103,4 +99,21 @@
   </div>
 </div>
 
+@stop
+
+
+
+@section('scripts')
+<script type="text/javascript">
+
+    $(document).ready(function()
+    {
+        $('#category-select').on('change', function() {
+            var current_cid = $(this).val();
+            $('.category-hint').hide();
+            $('.category-'+current_cid).fadeIn();
+        });
+    });
+
+</script>
 @stop

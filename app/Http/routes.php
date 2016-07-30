@@ -8,6 +8,8 @@ Route::get('/feed', 'PagesController@feed')->name('feed');
 Route::get('/sitemap', 'PagesController@sitemap');
 Route::get('/sitemap.xml', 'PagesController@sitemap');
 
+Route::get('/hall_of_fames', 'PagesController@hallOfFames')->name('hall_of_fames');
+
 # ------------------ User stuff ------------------------
 
 Route::get('/users/{id}/replies', 'UsersController@replies')->name('users.replies');
@@ -61,6 +63,10 @@ Route::get('/verification/{token}', 'Auth\AuthController@getVerification')->name
 # ------------------ Categories ------------------------
 
 Route::get('categories/{id}', 'CategoriesController@show')->name('categories.show');
+
+# ------------------ Site ------------------------
+
+Route::get('/sites', 'SitesController@index')->name('sites.index');
 
 # ------------------ Replies ------------------------
 

@@ -3,6 +3,7 @@
 use App\Models\User;
 use App\Models\Topic;
 use App\Models\Reply;
+use App\Models\Site;
 use Carbon\Carbon;
 
 /*
@@ -27,7 +28,9 @@ $factory->define(User::class, function (Faker\Generator $faker) {
         'personal_website'     => $faker->url,
         'image_url'            => $faker->url,
         'introduction'         => $faker->sentence,
+        'certification'        => $faker->sentence,
         'email'                => $faker->email,
+        'verified'             => true,
         'created_at'           => Carbon::now()->toDateTimeString(),
         'updated_at'           => Carbon::now()->toDateTimeString(),
     ];
@@ -47,6 +50,18 @@ $factory->define(Reply::class, function (Faker\Generator $faker) {
     return [
         'body'          => $body,
         'body_original' => $body,
+        'created_at'    => Carbon::now()->toDateTimeString(),
+        'updated_at'    => Carbon::now()->toDateTimeString(),
+    ];
+});
+
+$factory->define(Site::class, function (Faker\Generator $faker) {
+    return [
+        'title'         => $faker->userName,
+        'description'   => $faker->sentence,
+        'type'          => $faker->randomElement(['site', 'blog', 'weibo', 'dev_service']),
+        'favicon'       => '/assets/images/favicon.png',
+        'link'          => $faker->url,
         'created_at'    => Carbon::now()->toDateTimeString(),
         'updated_at'    => Carbon::now()->toDateTimeString(),
     ];
